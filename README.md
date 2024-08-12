@@ -146,6 +146,11 @@ $ npm run build
 ```
 The resulting file will be located in the `dist/` folder
 
+Alternatively run:
+```sh
+$ node --loader ts-node/esm scripts/build.ts
+```
+
 For development, you can also run the build in watch mode:
 ```sh
 $ npm install

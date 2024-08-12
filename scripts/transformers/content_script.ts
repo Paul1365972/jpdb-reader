@@ -11,13 +11,15 @@ type Binding = [ts.Identifier, ts.Identifier | undefined];
 type Import = { modulePath: string; namespace?: ts.Identifier; bindings: Binding[] };
 
 function parseEsImport(sourceFile: ts.SourceFile, factory: ts.NodeFactory, node: ts.ImportDeclaration): Import {
-    const modulePath = path.join(
-        '/',
-        path.relative(
-            'src',
-            path.join(path.dirname(sourceFile.fileName), (node.moduleSpecifier as ts.StringLiteral).text),
-        ),
-    );
+    const modulePath = path
+        .join(
+            '/',
+            path.relative(
+                'src',
+                path.join(path.dirname(sourceFile.fileName), (node.moduleSpecifier as ts.StringLiteral).text),
+            ),
+        )
+        .replaceAll('\\', '/');
     const defaultName = node.importClause?.name;
 
     const bindings: Binding[] = [];
